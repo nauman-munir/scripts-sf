@@ -1,0 +1,3 @@
+1. /dev/sda1
+2. 3 entries: /dev/sr0, some uuid, some uuid
+3. 9 filessystms udev/ tmpfs /dev/sda1, and rest tmpfs
