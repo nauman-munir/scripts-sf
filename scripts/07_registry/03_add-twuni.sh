@@ -3,7 +3,7 @@
 echo "Configuring apt for the Twuni Docker Registry repository..."
 
 # Add the Twuni Helm repo
-helm repo add twuni https://helm.twun.io
+helm repo add twuni https://twuni.github.io/docker-registry.helm
 helm repo update
 
 echo "Helm repos:"
