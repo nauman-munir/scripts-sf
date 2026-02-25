@@ -6,6 +6,7 @@
 ---
 
 ## 1. 01_install — OS Configuration
+
 - [ ] `00_update-sudoers.sh` — Configures the OS so that you don't need to enter your password when using sudo.
 - [ ] `01_install-packages.sh` — Installs Linux utilities and services.
 - [ ] `02_git-clone-http.sh` — Clones additional repos that contain SemaFor scripts for troubleshooting and SemaFor services helm charts.
@@ -17,6 +18,7 @@
 - [ ] `08_reboot.sh` — Reboot the computer.
 
 ## 2. 02_kubernetes-containerd — Kubernetes Installation
+
 - [ ] `01_disable-swap.sh` — Disables swap. Required to be turned off to run Kubernetes.
 - [ ] `02_kernel-modules.sh` — Applies recommended kernel modifications to run Kubernetes.
 - [ ] `03_install-containerd.sh` — Installs and starts containerd.
@@ -36,21 +38,26 @@
 - [ ] `17_set-endpoints.sh` — Sets the Kubernetes endpoints.
 
 ## 3. 03_prometheus — CRDs
+
 - [ ] `01_install-prometheus-stack-CRDs.sh` — Installs the Prometheus pods to create the CRDs. Required for SemaFor to run.
 - [ ] `02_uninstall-prometheus-stack.sh` — Uninstalls Prometheus (not required on a single node installation).
 
 ## 4. 04_nfs — Storage
+
 - [ ] `01_configure-nfs.sh` — Installs and configures an NFS share on the single node installation.
 - [ ] `02_install-nfs-provisioner.sh` — Installs the NFS Provisioner so Kubernetes can make use of the NFS share.
 
 ## 5. 05_desktop — Icons
+
 - [ ] `install.sh` — Copies icons to the desktop to use SemaFor.
 - [ ] **Manual Step:** Look for icons on the desktop with a red X. Right-click and select "Allow Launching".
 
 ## 6. 06_boot — Custom Boot Script
+
 - [ ] `create-custom-boot.sh` — Creates a process on boot to bring SemaFor back online after shutting down.
 
 ## 7. 07_registry — Docker Registry (Twuni)
+
 - [ ] `01_create-twuni-namespace.sh` — Creates a twuni namespace.
 - [ ] `02_apply-pvc.sh` — Creates persistent volume claims needed by SemaFor.
 - [ ] `03_add-twuni.sh` — Configures apt to be able to install the twuni repository.
@@ -59,6 +66,7 @@
 - [ ] `06_install-hosts-service.sh` — Creates a systemd service that runs on boot and updates the twuni IP address in /etc/hosts.
 
 ## 8. 08_docker-ce — Docker Runtime
+
 - [ ] `01_setup-docker-ce.sh` — Sets up Docker CE.
 - [ ] `02_install-docker-ce.sh` — Installs Docker CE.
 - [ ] `03_test-docker-ce.sh` — Tests Docker CE to make sure it can run a docker image.
@@ -66,6 +74,7 @@
 - [ ] `05_docker-group.sh` — Adds semafor to docker group.
 
 ## 9. 09_transfer-images — Image Management
+
 - [ ] `01_semafor-images.sh` — Reminder to run semafor first before running the next set of scripts.
 - [ ] `02_export-kubernetes-images.sh` — Exports containerd images to a tar file for backup.
 - [ ] `03_copy-docker-images-to-docker-registry.sh` — Copies the docker images to the twuni docker registry.

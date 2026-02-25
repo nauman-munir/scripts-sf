@@ -1,27 +1,35 @@
 #!/bin/bash
 
-NETWORK="10.10.10.0/21"
-GATEWAY="10.10.10.1"
-INTERFACE=$(ip route | grep default | awk '{print $5}' | head -1)
+# =============================================================================
+# 06_fix-route.sh
+# Verifies and fixes the Kubernetes static network route.
+# Routes are managed by netplan (50-k8s-static.yaml), so this script
+# only needs to check and re-apply if something went wrong.
+# =============================================================================
 
-echo "Creating default route to static network..."
-echo "Network: $NETWORK via Gateway: $GATEWAY on Interface: $INTERFACE"
+K8S_NETWORK="10.10.10.0/21"
+K8S_GATEWAY="10.10.10.1"
 
-# Add the route
-sudo ip route add $NETWORK via $GATEWAY dev $INTERFACE 2>/dev/null || \
-    echo "Route may already exist, checking..."
+echo "=== Checking Kubernetes Network Route ==="
 
-# Make route persistent via netplan or rc.local
-if [ ! -f /etc/rc.local ]; then
-    sudo tee /etc/rc.local > /dev/null <<EOF
-#!/bin/bash
-ip route add $NETWORK via $GATEWAY dev $INTERFACE 2>/dev/null
-exit 0
-EOF
-    sudo chmod +x /etc/rc.local
+# Check if the route exists
+if ip route show | grep -q "$K8S_NETWORK"; then
+    echo "✅ Route to $K8S_NETWORK already exists:"
+    ip route show | grep "$K8S_NETWORK"
+else
+    echo "⚠️  Route to $K8S_NETWORK is missing. Re-applying netplan..."
+    sudo netplan apply
+
+    # Verify after re-apply
+    if ip route show | grep -q "$K8S_NETWORK"; then
+        echo "✅ Route restored successfully:"
+        ip route show | grep "$K8S_NETWORK"
+    else
+        echo "❌ Failed to restore route. Check /etc/netplan/50-k8s-static.yaml" >&2
+        exit 1
+    fi
 fi
 
-echo "Current routing table:"
+echo ""
+echo "=== Full Routing Table ==="
 ip route show
-
-echo "Default route to static network configured."
