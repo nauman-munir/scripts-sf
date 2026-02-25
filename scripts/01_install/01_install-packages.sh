@@ -17,6 +17,7 @@ sudo apt-get install -y \
     wget \
     software-properties-common \
     nfs-common \
+    conntrack \
     conky-all
 
 echo "Package installation complete!"
