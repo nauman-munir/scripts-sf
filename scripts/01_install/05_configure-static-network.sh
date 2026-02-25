@@ -68,6 +68,10 @@ sudo chmod 600 /etc/netplan/50-k8s-static.yaml
 echo "Applying netplan configuration..."
 sudo netplan apply
 
+# Wait for DHCP to re-acquire lease after netplan reload
+echo "Waiting for network to stabilize..."
+sleep 5
+
 echo ""
 echo "=== Network Configuration ==="
 echo "--- $INET_IFACE (Internet) ---"
