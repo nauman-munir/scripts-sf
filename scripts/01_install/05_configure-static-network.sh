@@ -11,8 +11,6 @@
 
 STATIC_IP="10.10.10.10"
 SUBNET_PREFIX="21"
-K8S_GATEWAY="10.10.10.1"
-K8S_NETWORK="10.10.10.0/21"
 
 # --- Detect interfaces ---
 # Internet adapter: the one with the default route
@@ -53,13 +51,6 @@ network:
       dhcp4: false
       addresses:
         - $STATIC_IP/$SUBNET_PREFIX
-      routes:
-        - to: $K8S_NETWORK
-          via: $K8S_GATEWAY
-      nameservers:
-        addresses:
-          - 8.8.8.8
-          - 8.8.4.4
 EOF
 
 # Restrict permissions (netplan warns if config is world-readable)
